@@ -1,0 +1,42 @@
+<html>
+<head>
+    <meta charset=""utf-8>
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row mt-5">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <div class="col-md-12">
+            <div class="col-md-12">
+                {#{{ dump(app.user) }}#}
+                Olá {{ app.user.username }} você esta logado!
+            </div>
+            {% endif %}
+            {%  if is_granted("ROLE_USER") %}
+            <a href="{{ path('admin') }}" class="btn btn-default">Home</a>
+            {% endif %}
+
+            {%  if is_granted("ROLE_USER") %}
+            <a href="{{ path('dashboard') }}" class="btn btn-default">Dashboard</a>
+            {% endif %}
+
+            {%  if is_granted("ROLE_ADMIN") %}
+            <a href="{{ path('relatorios') }}" class="btn btn-default">Relatórios</a>
+            {% endif %}
+
+            {%  if is_granted("ROLE_USER") %}
+                <a href="{{ path('logout') }}" class="btn btn-default">Sair</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {% block body %} {% endblock %}
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
